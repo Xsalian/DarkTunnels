@@ -1,13 +1,16 @@
 using UnityEngine;
 using Cinemachine;
 
-public class Tunnel : MonoBehaviour
+namespace DarkTunnels
 {
-    [field: Space, Header("Path refrence")]
-    [field: SerializeField]
-    private CinemachinePath Path { get; set; }
+    public class Tunnel : MonoBehaviour
+    {
+        [field: Space, Header("Path refrence")]
+        [field: SerializeField]
+        private CinemachinePath Path { get; set; }
 
-    [field: Space, Header("EndTunnel refrence")]
-    [field: SerializeField]
-    private Transform EndTunnel { get; set; }
+        [field: Space, Header("EndTunnel refrence")]
+        [field: SerializeField]
+        private Transform EndTunnel { get; set; }
+    }
 }
