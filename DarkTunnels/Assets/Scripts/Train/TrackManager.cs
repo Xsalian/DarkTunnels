@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
@@ -11,7 +9,7 @@ namespace DarkTunnels
 
         [field: Space, Header("Path")]
         [field: SerializeField]
-        private CinemachineSmoothPath Path { get; set; }
+        private CinemachinePath Path { get; set; }
         [field: SerializeField]
         private GameObject PathPrefab { get; set; }
 
@@ -23,7 +21,7 @@ namespace DarkTunnels
         [field: SerializeField]
         private int Distance { get; set; }
 
-        private CinemachineSmoothPath.Waypoint[] WaypointsCollection { get; set; }
+        private CinemachinePath.Waypoint[] WaypointsCollection { get; set; }
         private int CurrentWaypointIndex { get; set; }
         private Vector3 PathSpawnPosition { get; set; }
 
@@ -48,7 +46,7 @@ namespace DarkTunnels
             GenerateTrack();
 
             CurrentWaypointIndex = 0;
-            WaypointsCollection = new CinemachineSmoothPath.Waypoint[transform.childCount + 1];
+            WaypointsCollection = new CinemachinePath.Waypoint[transform.childCount + 1];
 
             for (int i = 0; i< transform.childCount; i++)
             {
@@ -81,10 +79,10 @@ namespace DarkTunnels
 
         private void AddWaypoint(Transform child, int index)
         {
-            CinemachineSmoothPath path = child.GetComponent<CinemachineSmoothPath>();
+            CinemachinePath path = child.GetComponent<CinemachinePath>();
 
-            CinemachineSmoothPath.Waypoint wp = path.m_Waypoints[index];
-            CinemachineSmoothPath.Waypoint targetWp = new CinemachineSmoothPath.Waypoint();
+            CinemachinePath.Waypoint wp = path.m_Waypoints[index];
+            CinemachinePath.Waypoint targetWp = new CinemachinePath.Waypoint();
 
             targetWp.position = child.rotation * wp.position + child.localPosition;
             targetWp.roll = wp.roll;
