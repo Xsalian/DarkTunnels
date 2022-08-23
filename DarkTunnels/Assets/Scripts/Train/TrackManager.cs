@@ -11,7 +11,7 @@ namespace DarkTunnels
         [field: SerializeField]
         private CinemachinePath Path { get; set; }
         [field: SerializeField]
-        private GameObject PathPrefab { get; set; }
+        private Tunnel[] PathPrefabsCollection { get; set; }
 
         [field: Space, Header("Add track input")]
         [field: SerializeField]
@@ -23,7 +23,9 @@ namespace DarkTunnels
 
         private CinemachinePath.Waypoint[] WaypointsCollection { get; set; }
         private int CurrentWaypointIndex { get; set; }
-        private Vector3 PathSpawnPosition { get; set; }
+        private Transform PathSpawn { get; set; }
+        private Tunnel CurrentTunnel { get; set; }
+        private int PathCollectionIndex { get; set; }
 
         protected virtual void Awake ()
         {
@@ -73,18 +75,30 @@ namespace DarkTunnels
 
         private void AddTrack ()
         {
-            Instantiate(PathPrefab, PathSpawnPosition, Quaternion.identity, transform);
-            PathSpawnPosition += new Vector3(0, 0, 25);
+            PathCollectionIndex = Random.Range(0, PathPrefabsCollection.Length);
+
+            if (PathSpawn == null)
+            {
+                CurrentTunnel = Instantiate(PathPrefabsCollection[PathCollectionIndex], Vector3.zero, Quaternion.identity, transform);
+            }
+            else
+            {
+                CurrentTunnel = Instantiate(PathPrefabsCollection[PathCollectionIndex], PathSpawn.position, PathSpawn.rotation, transform);
+            }
+
+            PathSpawn = CurrentTunnel.EndTunnel;
         }
 
         private void AddWaypoint(Transform child, int index)
         {
-            CinemachinePath path = child.GetComponent<CinemachinePath>();
+            Tunnel tunnel = child.GetComponent<Tunnel>();
+            CinemachinePath path = tunnel.Path;
 
             CinemachinePath.Waypoint wp = path.m_Waypoints[index];
             CinemachinePath.Waypoint targetWp = new CinemachinePath.Waypoint();
 
-            targetWp.position = child.rotation * wp.position + child.localPosition;
+            targetWp.position = child.localRotation * wp.position + child.localPosition;
+            targetWp.tangent = child.localRotation * wp.tangent;
             targetWp.roll = wp.roll;
 
             WaypointsCollection[CurrentWaypointIndex] = targetWp;
