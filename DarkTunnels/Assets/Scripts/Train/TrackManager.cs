@@ -11,7 +11,11 @@ namespace DarkTunnels
         [field: SerializeField]
         private CinemachinePath Path { get; set; }
         [field: SerializeField]
-        private Tunnel[] PathPrefabsCollection { get; set; }
+        private Tunnel StraightPathPrefab { get; set; }
+        [field: SerializeField]
+        private Tunnel TurnLeftPathPrefab { get; set; }
+        [field: SerializeField]
+        private Tunnel TurnRightPathPrefab { get; set; }
 
         [field: Space, Header("Add track input")]
         [field: SerializeField]
@@ -26,6 +30,7 @@ namespace DarkTunnels
         private Transform PathSpawn { get; set; }
         private Tunnel CurrentTunnel { get; set; }
         private int PathCollectionIndex { get; set; }
+        private bool WasLastTurnLeft { get; set; }
 
         protected virtual void Awake ()
         {
@@ -45,6 +50,8 @@ namespace DarkTunnels
 
         private void Initialize ()
         {
+            PathSpawn = transform;
+
             GenerateTrack();
 
             CurrentWaypointIndex = 0;
@@ -75,15 +82,24 @@ namespace DarkTunnels
 
         private void AddTrack ()
         {
-            PathCollectionIndex = Random.Range(0, PathPrefabsCollection.Length);
+            int whichTrack = Random.Range(0, 2);
 
-            if (PathSpawn == null)
+            if (whichTrack == 0)
             {
-                CurrentTunnel = Instantiate(PathPrefabsCollection[PathCollectionIndex], Vector3.zero, Quaternion.identity, transform);
+                CurrentTunnel = Instantiate(StraightPathPrefab, PathSpawn.position, PathSpawn.rotation, transform);
             }
             else
             {
-                CurrentTunnel = Instantiate(PathPrefabsCollection[PathCollectionIndex], PathSpawn.position, PathSpawn.rotation, transform);
+                if (WasLastTurnLeft)
+                {
+                    CurrentTunnel = Instantiate(TurnRightPathPrefab, PathSpawn.position, PathSpawn.rotation, transform);
+                    WasLastTurnLeft = false;
+                }
+                else
+                {
+                    CurrentTunnel = Instantiate(TurnLeftPathPrefab, PathSpawn.position, PathSpawn.rotation, transform);
+                    WasLastTurnLeft = true;
+                }
             }
 
             PathSpawn = CurrentTunnel.EndTunnel;
