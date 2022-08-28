@@ -55,18 +55,13 @@ namespace DarkTunnels
             GenerateTrack();
 
             CurrentWaypointIndex = 0;
-            WaypointsCollection = new CinemachinePath.Waypoint[transform.childCount + 1];
+            WaypointsCollection = new CinemachinePath.Waypoint[transform.childCount * 5];
 
             for (int i = 0; i< transform.childCount; i++)
             {
                 Transform currentChild = transform.GetChild(i);
 
-                if (i == 0)
-                {
-                    AddWaypoint(currentChild, 0);
-                }
-
-                AddWaypoint(currentChild, 1);
+                AddWaypoint(currentChild);
             }
 
             Path.m_Waypoints = WaypointsCollection;
@@ -105,20 +100,24 @@ namespace DarkTunnels
             PathSpawn = CurrentTunnel.EndTunnel;
         }
 
-        private void AddWaypoint(Transform child, int index)
+        private void AddWaypoint(Transform child)
         {
             Tunnel tunnel = child.GetComponent<Tunnel>();
             CinemachinePath path = tunnel.Path;
+            int lenghtWaypoints = path.m_Waypoints.Length;
 
-            CinemachinePath.Waypoint wp = path.m_Waypoints[index];
-            CinemachinePath.Waypoint targetWp = new CinemachinePath.Waypoint();
+            for (int index = 0; index < lenghtWaypoints; index++)
+            {
+                CinemachinePath.Waypoint wp = path.m_Waypoints[index];
+                CinemachinePath.Waypoint targetWp = new CinemachinePath.Waypoint();
 
-            targetWp.position = child.localRotation * wp.position + child.localPosition;
-            targetWp.tangent = child.localRotation * wp.tangent;
-            targetWp.roll = wp.roll;
+                targetWp.position = child.localRotation * wp.position + child.localPosition;
+                targetWp.tangent = child.localRotation * wp.tangent;
+                targetWp.roll = wp.roll;
 
-            WaypointsCollection[CurrentWaypointIndex] = targetWp;
-            CurrentWaypointIndex++;
+                WaypointsCollection[CurrentWaypointIndex] = targetWp;
+                CurrentWaypointIndex++;
+            }
         }
     }
 }
