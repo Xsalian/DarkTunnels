@@ -5,8 +5,6 @@ namespace DarkTunnels
 {
     public class TrackManager : MonoBehaviour
     {
-        public static TrackManager CurrentTrackManager { get; set; }
-
         [field: Space, Header("Path")]
         [field: SerializeField]
         private CinemachinePath Path { get; set; }
@@ -24,13 +22,17 @@ namespace DarkTunnels
         [field: Space, Header("Generator setttings")]
         [field: SerializeField]
         private int Distance { get; set; }
+        [field: SerializeField]
+        private float Height { get; set; }
 
+        public static TrackManager CurrentTrackManager { get; set; }
         private CinemachinePath.Waypoint[] WaypointsCollection { get; set; }
         private int CurrentWaypointIndex { get; set; }
         private Transform PathSpawn { get; set; }
         private Tunnel CurrentTunnel { get; set; }
         private int PathCollectionIndex { get; set; }
         private bool WasLastTurnLeft { get; set; }
+        private Vector3 SpawnPosition { get; set; }
 
         protected virtual void Awake ()
         {
@@ -51,6 +53,7 @@ namespace DarkTunnels
         private void Initialize ()
         {
             PathSpawn = transform;
+            SpawnPosition = new Vector3(PathSpawn.position.x, Height, PathSpawn.position.z);
 
             GenerateTrack();
 
@@ -81,23 +84,24 @@ namespace DarkTunnels
 
             if (whichTrack == 0)
             {
-                CurrentTunnel = Instantiate(StraightPathPrefab, PathSpawn.position, PathSpawn.rotation, transform);
+                CurrentTunnel = Instantiate(StraightPathPrefab, SpawnPosition, PathSpawn.rotation, transform);
             }
             else
             {
                 if (WasLastTurnLeft)
                 {
-                    CurrentTunnel = Instantiate(TurnRightPathPrefab, PathSpawn.position, PathSpawn.rotation, transform);
+                    CurrentTunnel = Instantiate(TurnRightPathPrefab, SpawnPosition, PathSpawn.rotation, transform);
                     WasLastTurnLeft = false;
                 }
                 else
                 {
-                    CurrentTunnel = Instantiate(TurnLeftPathPrefab, PathSpawn.position, PathSpawn.rotation, transform);
+                    CurrentTunnel = Instantiate(TurnLeftPathPrefab, SpawnPosition, PathSpawn.rotation, transform);
                     WasLastTurnLeft = true;
                 }
             }
 
             PathSpawn = CurrentTunnel.EndTunnel;
+            SpawnPosition = new Vector3(PathSpawn.position.x, Height, PathSpawn.position.z);
         }
 
         private void AddWaypoint(Transform child)
@@ -112,6 +116,7 @@ namespace DarkTunnels
                 CinemachinePath.Waypoint targetWp = new CinemachinePath.Waypoint();
 
                 targetWp.position = child.localRotation * wp.position + child.localPosition;
+                targetWp.position.y = 0;
                 targetWp.tangent = child.localRotation * wp.tangent;
                 targetWp.roll = wp.roll;
 
