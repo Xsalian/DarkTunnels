@@ -123,7 +123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8465626317790152616}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.092, y: -3.25, z: 1.53}
+  m_LocalPosition: {x: -0.092, y: -3.25, z: 0.324}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,10 +150,10 @@ MonoBehaviour:
   m_Looped: 0
   m_Waypoints:
   - position: {x: 0, y: 0, z: 0}
-    tangent: {x: 0, y: 0, z: 0}
+    tangent: {x: 0, y: 0, z: -1}
     roll: 0
-  - position: {x: 0, y: 0, z: -163.76921}
-    tangent: {x: 0, y: 0, z: 0}
+  - position: {x: -0.000011923621, y: 0, z: -161.26877}
+    tangent: {x: 0, y: 0, z: -1}
     roll: 0
 --- !u!1 &8465626318962005195
 GameObject:
@@ -179,7 +179,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8465626318962005195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -162.25}
+  m_LocalPosition: {x: 0.018, y: 0, z: -163.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
