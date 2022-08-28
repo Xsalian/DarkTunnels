@@ -33,6 +33,8 @@ namespace DarkTunnels
         private int PathCollectionIndex { get; set; }
         private bool WasLastTurnLeft { get; set; }
         private Vector3 SpawnPosition { get; set; }
+        private int NumberStraightPrefabs { get; set; }
+        private int NumberTurnPrefabs { get; set; }
 
         protected virtual void Awake ()
         {
@@ -58,7 +60,7 @@ namespace DarkTunnels
             GenerateTrack();
 
             CurrentWaypointIndex = 0;
-            WaypointsCollection = new CinemachinePath.Waypoint[transform.childCount * 5];
+            WaypointsCollection = new CinemachinePath.Waypoint[NumberStraightPrefabs * 2 + NumberTurnPrefabs * 5];
 
             for (int i = 0; i< transform.childCount; i++)
             {
@@ -84,10 +86,12 @@ namespace DarkTunnels
 
             if (whichTrack == 0)
             {
+                NumberStraightPrefabs++;
                 CurrentTunnel = Instantiate(StraightPathPrefab, SpawnPosition, PathSpawn.rotation, transform);
             }
             else
             {
+                NumberTurnPrefabs++;
                 if (WasLastTurnLeft)
                 {
                     CurrentTunnel = Instantiate(TurnRightPathPrefab, SpawnPosition, PathSpawn.rotation, transform);
