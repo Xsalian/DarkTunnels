@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
@@ -15,9 +16,9 @@ namespace DarkTunnels
         [field: SerializeField]
         private Tunnel TurnRightPathPrefab { get; set; }
 
-        [field: Space, Header("Add track input")]
+        [field: Space, Header("NavMeshBaker reference")]
         [field: SerializeField]
-        private KeyCode AddTrackInput { get; set; }
+        private NavMeshBaker CurrentNavMeshBaker { get; set; }
 
         [field: Space, Header("Generator setttings")]
         [field: SerializeField]
@@ -35,6 +36,7 @@ namespace DarkTunnels
         private Vector3 SpawnPosition { get; set; }
         private int NumberStraightPrefabs { get; set; }
         private int NumberTurnPrefabs { get; set; }
+        private List<Tunnel> TunnelsCollection { get; set; } = new();
 
         protected virtual void Awake ()
         {
@@ -58,6 +60,7 @@ namespace DarkTunnels
             SpawnPosition = new Vector3(PathSpawn.position.x, Height, PathSpawn.position.z);
 
             GenerateTrack();
+            CurrentNavMeshBaker.BakeNavMesh(TunnelsCollection);
 
             CurrentWaypointIndex = 0;
             WaypointsCollection = new CinemachinePath.Waypoint[NumberStraightPrefabs * 2 + NumberTurnPrefabs * 5];
@@ -105,6 +108,7 @@ namespace DarkTunnels
             }
 
             PathSpawn = CurrentTunnel.EndTunnel;
+            TunnelsCollection.Add(CurrentTunnel);
             SpawnPosition = new Vector3(PathSpawn.position.x, Height, PathSpawn.position.z);
         }
 

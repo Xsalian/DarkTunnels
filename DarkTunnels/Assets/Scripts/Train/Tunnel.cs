@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.AI;
 
 namespace DarkTunnels
 {
@@ -12,5 +13,9 @@ namespace DarkTunnels
         [field: Space, Header("EndTunnel refrence")]
         [field: SerializeField]
         public Transform EndTunnel { get; set; }
+
+        [field: Space, Header("NavMeshSurface refrence")]
+        [field: SerializeField]
+        public NavMeshSurface NavMesh { get; set; }
     }
 }

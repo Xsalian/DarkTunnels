@@ -51,11 +51,11 @@ MonoBehaviour:
     width: 3.66
   m_Looped: 0
   m_Waypoints:
-  - position: {x: 0, y: 0, z: 0}
-    tangent: {x: 0, y: 0, z: -1}
+  - position: {x: 1.1357243, y: 0, z: -9.405286}
+    tangent: {x: 0.60778797, y: 0, z: -2.708377}
     roll: 0
   - position: {x: 7.8102207, y: 0, z: -30.999735}
-    tangent: {x: 6.9385786, y: 0, z: -14.596159}
+    tangent: {x: 5.593379, y: 0, z: -13.719961}
     roll: 0
   - position: {x: 36.309563, y: 0, z: -68.601974}
     tangent: {x: 9.371651, y: 0, z: -7.264557}
@@ -205,6 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7122329393159562445}
   - component: {fileID: 7122329393159562446}
+  - component: {fileID: 3139884135174371043}
   m_Layer: 0
   m_Name: TunnelTurnLeft
   m_TagString: Untagged
@@ -244,3 +245,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Path>k__BackingField: {fileID: 7122329391344205625}
   <EndTunnel>k__BackingField: {fileID: 7122329391573410079}
+  <NavMesh>k__BackingField: {fileID: 3139884135174371043}
+--- !u!114 &3139884135174371043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7122329393159562444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}
