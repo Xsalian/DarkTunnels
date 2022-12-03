@@ -1,10 +1,10 @@
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 namespace DarkTunnels
-{ 
-    public class EnemySpawner : MonoBehaviour
+{
+	public class EnemySpawner : MonoBehaviour
     {
         [field: Header("References for enemy")]
         [field: SerializeField]
@@ -37,7 +37,8 @@ namespace DarkTunnels
 
         private void HandleInput()
         {
-            if (Input.GetKeyDown(KeyCode.T)) //try new input system
+            //try new input system, DEBUG INPUT REMOVE LATER
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 SpawnEnemy();
             }
@@ -51,7 +52,7 @@ namespace DarkTunnels
         private void SpawnEnemy()
         {
             EnemyController enemy = Instantiate(DrawRandomEnemy(), SpawnPointTransform.position, Quaternion.identity);
-            enemy.LastPlayerCart = TrainTransform;
+            enemy.LastTrainCart = TrainTransform;
             EnemyCollection.Add(enemy);
         }
 
