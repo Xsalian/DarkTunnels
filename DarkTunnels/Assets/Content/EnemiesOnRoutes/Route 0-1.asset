@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Route 0-1
   m_EditorClassIdentifier: 
   <EnemyTypeCollection>k__BackingField:
-  - {fileID: 1835839252805081561, guid: a7859e1f73fb1b74988900e73657ae32, type: 3}
+  - {fileID: 1287648012236248322, guid: a7859e1f73fb1b74988900e73657ae32, type: 3}
