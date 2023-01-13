@@ -225,8 +225,8 @@ MonoBehaviour:
   <EnemyStatistics>k__BackingField: {fileID: 11400000, guid: 0aed38c030e9c544584947ecf31f15cf,
     type: 2}
   <LastTrainCart>k__BackingField: {fileID: 0}
-  <EnemyAgent>k__BackingField: {fileID: 7736890993981052923}
   <AliveEnemy>k__BackingField: {fileID: 6109485413918862586}
+  <EnemyAgent>k__BackingField: {fileID: 7736890993981052923}
   <BodyPartCollection>k__BackingField:
   - {fileID: 5566209166608316246}
   - {fileID: 7909400570492632079}
@@ -1147,6 +1147,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BodyPart>k__BackingField: 0
   <IsSetToDetectCollisonWithTrain>k__BackingField: 0
+--- !u!1001 &1293373770298376234
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2099978431048314296}
+    m_Modifications:
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250306, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_Name
+      value: BloodEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b42d839e495a0bf438de454a928ea749, type: 3}
 --- !u!1001 &8059781323126887508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1233,6 +1302,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8059781323126887508}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8120801119017663906
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4730778800054316387}
+    m_Modifications:
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250305, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175351250085250306, guid: b42d839e495a0bf438de454a928ea749,
+        type: 3}
+      propertyPath: m_Name
+      value: BloodEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b42d839e495a0bf438de454a928ea749, type: 3}
 --- !u!1001 &9025763842065522993
 PrefabInstance:
   m_ObjectHideFlags: 0
