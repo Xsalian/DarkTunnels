@@ -9,8 +9,6 @@ namespace DarkTunnels
         [field: SerializeField]
         private EnemyStatisticsData EnemyStatistics { get; set; }
         [field: SerializeField]
-        public Transform LastTrainCart { get; set; }
-        [field: SerializeField]
         protected GameObject AliveEnemy { get; set; }
         [field: SerializeField]
         private NavMeshAgent EnemyAgent { get; set; }
@@ -27,6 +25,7 @@ namespace DarkTunnels
         [field: SerializeField]
         private GameObject StomachShatter { get; set; }
 
+        public Transform LastTrainCart { get; set; }
         protected int CurrentHealthPoints { get; set; }
 
         private const string ATTACK_ANIMATION_NAME = "Attack";
@@ -34,8 +33,7 @@ namespace DarkTunnels
 
         protected virtual void Awake ()
         {
-            InitializeStatistics();
-            AudioController.PlaySFX(EnemyAudioType.IDLE); //TODO: CREATE INTILIZEENEMY FUNCTION VERY IMPORTANT TO OBJECTPOOLING
+            Initialize();
         }
 
         protected virtual void OnEnable ()
@@ -65,7 +63,14 @@ namespace DarkTunnels
 
         private void Initialize ()
         {
+            AudioController.PlaySFX(EnemyAudioType.IDLE);
+            InitializeStatistics();
+        }
 
+        private void InitializeStatistics()
+        {
+            CurrentHealthPoints = EnemyStatistics.MaxHealthPoints;
+            EnemyAgent.speed = EnemyStatistics.Speed;
         }
 
         private void AttachToEvents ()
@@ -89,15 +94,9 @@ namespace DarkTunnels
 
                 if (BodyPartCollection[index].IsSetToDetectCollisonWithTrain == true)
                 {
-                    BodyPartCollection[index].OnCollisonWithTrain += HandleOnCollisonWithTrain;
+                    BodyPartCollection[index].OnCollisonWithTrain -= HandleOnCollisonWithTrain;
                 }
             }
-        }
-
-        private void InitializeStatistics ()
-		{
-            CurrentHealthPoints = EnemyStatistics.MaxHealthPoints;
-            EnemyAgent.speed = EnemyStatistics.Speed;
         }
 
         private void SetEnemyDestination ()
@@ -153,10 +152,12 @@ namespace DarkTunnels
 			if (isEnter)
 			{
                 AnimationController.Play(ATTACK_ANIMATION_NAME);
+                AudioController.PlaySFX(EnemyAudioType.ATTACK);
             }
 			else
 			{
                 AnimationController.Play(RUN_ANIMATION_NAME);
+                AudioController.PlaySFX(EnemyAudioType.IDLE);
             }
 		}
     }
