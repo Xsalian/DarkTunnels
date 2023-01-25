@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace DarkTunnels
 {
-	public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour
     {
         [field: SerializeField]
         private EnemyStatisticsData EnemyStatistics { get; set; }
@@ -18,6 +18,8 @@ namespace DarkTunnels
         private List<EnemyBodyPart> BodyPartCollection { get; set; }
         [field: SerializeField]
         private Animator AnimationController { get; set; }
+        [field: SerializeField]
+        private EnemyAudioController AudioController { get; set; }
 
         [field: Header("Dead body variants")]
         [field: SerializeField]
@@ -33,6 +35,7 @@ namespace DarkTunnels
         protected virtual void Awake ()
         {
             InitializeStatistics();
+            AudioController.PlaySFX(EnemyAudioType.IDLE); //TODO: CREATE INTILIZEENEMY FUNCTION VERY IMPORTANT TO OBJECTPOOLING
         }
 
         protected virtual void OnEnable ()
@@ -45,7 +48,7 @@ namespace DarkTunnels
             DetachFromEvents();
 		}
 
-        protected virtual void Update()
+        protected virtual void Update ()
         {
             SetEnemyDestination();
             
@@ -58,6 +61,11 @@ namespace DarkTunnels
             {
                 HandleOnHit(BodyParts.STOMACH, 100);
             }
+        }
+
+        private void Initialize ()
+        {
+
         }
 
         private void AttachToEvents ()
@@ -94,7 +102,10 @@ namespace DarkTunnels
 
         private void SetEnemyDestination ()
 		{
-            EnemyAgent.SetDestination(LastTrainCart.position);
+            if (EnemyAgent.enabled == true)
+            {
+                EnemyAgent.SetDestination(LastTrainCart.position);
+            }
         }
 
         private void HandleOnHit (BodyParts bodyPart, int damage)
@@ -129,10 +140,12 @@ namespace DarkTunnels
         {
             DetachFromEvents();
 
-            corpse.transform.SetPositionAndRotation(AliveEnemy.transform.position, AliveEnemy.transform.rotation);
+            EnemyAgent.enabled = false; 
 
             AliveEnemy.SetActive(false);
             corpse.SetActive(true);
+            
+            AudioController.PlaySFX(EnemyAudioType.DEATH);
         }
 
         private void HandleOnCollisonWithTrain (bool isEnter)
