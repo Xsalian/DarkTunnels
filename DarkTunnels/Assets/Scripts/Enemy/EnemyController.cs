@@ -152,7 +152,6 @@ namespace DarkTunnels
 			if (isEnter)
 			{
                 AnimationController.Play(ATTACK_ANIMATION_NAME);
-                AudioController.PlaySFX(EnemyAudioType.ATTACK);
             }
 			else
 			{
