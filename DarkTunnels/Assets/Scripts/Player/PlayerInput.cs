@@ -17,6 +17,16 @@ namespace DarkTunnels.Player
             return PlayerControls.Player.StopInteract.IsPressed();
         }
 
+        public Vector2 GetAimAxis ()
+        {
+            return PlayerControls.Player.AimAxis.ReadValue<Vector2>();
+        }
+
+        public bool GetShootInput ()
+        {
+            return PlayerControls.Player.Shoot.IsPressed();
+        }
+
         protected override void Awake ()
         {
             base.Awake();

@@ -44,6 +44,24 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""0335ecd1-3aaf-43b4-9669-111c85ad39fb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""66a61650-c7e3-4d36-bcb6-ca4cd372683a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +86,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""StopInteract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cedb0898-7ff8-4a1d-af1a-4e34e327145d"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AimAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77b6c46b-29c7-41f7-a79b-3dd432594db4"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +118,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_StopInteract = m_Player.FindAction("StopInteract", throwIfNotFound: true);
+        m_Player_AimAxis = m_Player.FindAction("AimAxis", throwIfNotFound: true);
+        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,12 +181,16 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_StopInteract;
+    private readonly InputAction m_Player_AimAxis;
+    private readonly InputAction m_Player_Shoot;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
         public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @StopInteract => m_Wrapper.m_Player_StopInteract;
+        public InputAction @AimAxis => m_Wrapper.m_Player_AimAxis;
+        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -160,6 +206,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @StopInteract.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStopInteract;
                 @StopInteract.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStopInteract;
                 @StopInteract.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStopInteract;
+                @AimAxis.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimAxis;
+                @AimAxis.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimAxis;
+                @AimAxis.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimAxis;
+                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -170,6 +222,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @StopInteract.started += instance.OnStopInteract;
                 @StopInteract.performed += instance.OnStopInteract;
                 @StopInteract.canceled += instance.OnStopInteract;
+                @AimAxis.started += instance.OnAimAxis;
+                @AimAxis.performed += instance.OnAimAxis;
+                @AimAxis.canceled += instance.OnAimAxis;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -178,5 +236,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     {
         void OnInteract(InputAction.CallbackContext context);
         void OnStopInteract(InputAction.CallbackContext context);
+        void OnAimAxis(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }
