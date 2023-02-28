@@ -52,6 +52,9 @@ MonoBehaviour:
   <TrainLastCart>k__BackingField: {fileID: 0}
   <CurrentDollyCart>k__BackingField: {fileID: 2400460015363542503}
   <SpaceDistance>k__BackingField: 40
+  <MaxSpawnDelay>k__BackingField: 10
+  <MinSpawnDelay>k__BackingField: 5
+  <TimeToReachMinValue>k__BackingField: 30
 --- !u!1 &2400460014991602556
 GameObject:
   m_ObjectHideFlags: 0

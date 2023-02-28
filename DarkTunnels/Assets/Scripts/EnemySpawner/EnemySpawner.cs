@@ -1,8 +1,9 @@
 using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkTunnels
+namespace DarkTunnels.Enemy
 {
 	public class EnemySpawner : MonoBehaviour
     {
@@ -22,11 +23,22 @@ namespace DarkTunnels
         [field: SerializeField]
         private float SpaceDistance { get; set; }
 
+        [field: Space, Header("Spawn frequency settings")]
+        [field: SerializeField]
+        public float MaxSpawnDelay { get; private set; }
+        [field: SerializeField]
+        public float MinSpawnDelay { get; private set; }
+        [field: SerializeField]
+        public float TimeToReachMinValue { get; private set; }
+
         private List<EnemyController> EnemyCollection { get; set; } = new();
+        private bool CanSpawn { get; set; } = true;
+        private float TimerSpawn { get; set; }
 
         protected virtual void Update()
         {
             SetSpawnPosition();
+            TrySpawnEnemy();
             HandleInput();
         }
 
@@ -35,14 +47,24 @@ namespace DarkTunnels
             CurrentDollyCart.m_Position = TrainLastCart.m_Position - SpaceDistance;
         }
 
+        private void TrySpawnEnemy ()
+        {
+            if (TimerSpawn <= TimeToReachMinValue)
+            {
+                TimerSpawn += Time.deltaTime;
+            }
+
+            if (CanSpawn == true)
+            {
+                SpawnEnemy();
+                float timeToWait = Mathf.Lerp(MaxSpawnDelay, MinSpawnDelay, TimerSpawn / TimeToReachMinValue);
+                StartCoroutine(WaitForNextSpawn(timeToWait));
+            }
+        }
+
         private void HandleInput()
         {
             //try new input system, DEBUG INPUT REMOVE LATER
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                SpawnEnemy();
-            }
-
             if (Input.GetKeyDown(KeyCode.O))
             {
                 DestroyAllEnemies();
@@ -68,7 +90,14 @@ namespace DarkTunnels
 
         private EnemyController DrawRandomEnemy()
         {
-            return CurrentEnemiesOnRoute.EnemyTypeCollection[Random.Range(0, CurrentEnemiesOnRoute.EnemyTypeCollection.Length)];
+            return CurrentEnemiesOnRoute.EnemyTypeCollection[UnityEngine.Random.Range(0, CurrentEnemiesOnRoute.EnemyTypeCollection.Length)];
+        }
+
+        private IEnumerator WaitForNextSpawn(float time)
+        {
+            CanSpawn = false;
+            yield return new WaitForSeconds(time);
+            CanSpawn = true;
         }
     }
 }
