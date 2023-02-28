@@ -1,10 +1,10 @@
 using UnityEngine;
+using DarkTunnels.Utilities;
 
 namespace DarkTunnels.Player
 {
-    public class PlayerInput : MonoBehaviour
+    public class PlayerInput : SingletonMonoBehaviour<PlayerInput>
     {
-        public static PlayerInput Instance { get; private set; }
         private Controls PlayerControls { get; set; }
 
         public bool GetInteractInput ()
@@ -17,22 +17,10 @@ namespace DarkTunnels.Player
             return PlayerControls.Player.StopInteract.IsPressed();
         }
 
-        protected virtual void Awake ()
+        protected override void Awake ()
         {
-            CreateSingleton();
+            base.Awake();
             InitializePlayerControls();
-        }
-
-        private void CreateSingleton ()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else if (Instance != this)
-            {
-                Destroy(this);
-            }
         }
 
         private void InitializePlayerControls ()
