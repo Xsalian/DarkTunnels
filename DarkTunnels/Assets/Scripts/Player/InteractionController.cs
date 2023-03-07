@@ -45,7 +45,7 @@ namespace DarkTunnels.Player
 
         private void TryExitInteraction ()
         {
-            if (PlayerInput.Instance.GetStopInteractInput() == true)
+            if (CurrentInterctable != null && PlayerInput.Instance.GetStopInteractInput() == true)
             {
                 CurrentInterctable.StopInteract();
                 SetFirstPersonControllerEnableState(true);
