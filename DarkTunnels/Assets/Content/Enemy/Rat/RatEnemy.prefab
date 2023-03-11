@@ -264,6 +264,7 @@ MonoBehaviour:
   <BodyPartCollection>k__BackingField:
   - {fileID: 5566209166608316246}
   - {fileID: 7909400570492632079}
+  <AnimationManager>k__BackingField: {fileID: 177681618776261377}
   <AnimationController>k__BackingField: {fileID: 1700448037865913222}
   <AudioController>k__BackingField: {fileID: 919822137162813566}
   <HeadShatter>k__BackingField: {fileID: 1616598672054531842}
@@ -927,7 +928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f266d9ee8c91bbb438e0810c5e973c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioController>k__BackingField: {fileID: 919822137162813566}
 --- !u!1 &6720278962816260331
 GameObject:
   m_ObjectHideFlags: 0
