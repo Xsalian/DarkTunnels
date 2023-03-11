@@ -2,7 +2,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.AI;
 
-namespace DarkTunnels
+namespace DarkTunnels.TrackManagment
 {
     public class Tunnel : MonoBehaviour
     {

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkTunnels
+namespace DarkTunnels.TrackManagment
 {
     public class NavMeshBaker : MonoBehaviour
     {
         public void BakeNavMesh(List<Tunnel> tunnelsList)
         {
-                tunnelsList[0].NavMesh.BuildNavMesh();
+            tunnelsList[0].NavMesh.BuildNavMesh();
         }
     }
 }

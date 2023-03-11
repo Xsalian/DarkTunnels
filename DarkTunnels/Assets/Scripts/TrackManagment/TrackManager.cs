@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using DarkTunnels.Utilities;
 
-namespace DarkTunnels
+namespace DarkTunnels.TrackManagment
 {
-    public class TrackManager : MonoBehaviour
+    public class TrackManager : SingletonMonoBehaviour<TrackManager>
     {
-        [field: Space, Header("Path")]
+        [field: Header("Path")]
         [field: SerializeField]
         private CinemachinePath Path { get; set; }
         [field: SerializeField]
@@ -15,12 +16,14 @@ namespace DarkTunnels
         private Tunnel TurnLeftPathPrefab { get; set; }
         [field: SerializeField]
         private Tunnel TurnRightPathPrefab { get; set; }
+        [field: SerializeField]
+        private Transform EndTrackPoint { get; set; }
 
-        [field: Space, Header("NavMeshBaker reference")]
+        [field: Header("NavMeshBaker reference")]
         [field: SerializeField]
         private NavMeshBaker CurrentNavMeshBaker { get; set; }
 
-        [field: Space, Header("Generator setttings")]
+        [field: Header("Generator setttings")]
         [field: SerializeField]
         private int Distance { get; set; }
         [field: SerializeField]
@@ -31,27 +34,16 @@ namespace DarkTunnels
         private int CurrentWaypointIndex { get; set; }
         private Transform PathSpawn { get; set; }
         private Tunnel CurrentTunnel { get; set; }
-        private int PathCollectionIndex { get; set; }
         private bool WasLastTurnLeft { get; set; }
         private Vector3 SpawnPosition { get; set; }
         private int NumberStraightPrefabs { get; set; }
         private int NumberTurnPrefabs { get; set; }
         private List<Tunnel> TunnelsCollection { get; set; } = new();
 
-        protected virtual void Awake ()
+        protected override void Awake ()
         {
-            SetSingleton();
+            base.Awake();
             Initialize();
-        }
-
-        private void SetSingleton ()
-        {
-            if (CurrentTrackManager != null && CurrentTrackManager != this)
-            {
-                Destroy(gameObject);
-            }
-
-            CurrentTrackManager = this;
         }
 
         private void Initialize ()
@@ -65,19 +57,20 @@ namespace DarkTunnels
             CurrentWaypointIndex = 0;
             WaypointsCollection = new CinemachinePath.Waypoint[NumberStraightPrefabs * 2 + NumberTurnPrefabs * 5];
 
-            for (int i = 0; i< transform.childCount; i++)
+            for (int index = 0; index < transform.childCount; index++)
             {
-                Transform currentChild = transform.GetChild(i);
-
+                Transform currentChild = transform.GetChild(index);
                 AddWaypoint(currentChild);
             }
 
             Path.m_Waypoints = WaypointsCollection;
+
+            EndTrackPoint.position = SpawnPosition;
         }
 
         private void GenerateTrack ()
         {
-            for (int i=0; i<Distance; i++)
+            for (int index = 0; index < Distance; index++)
             {
                 AddTrack();
             }
@@ -95,7 +88,8 @@ namespace DarkTunnels
             else
             {
                 NumberTurnPrefabs++;
-                if (WasLastTurnLeft)
+
+                if (WasLastTurnLeft == true)
                 {
                     CurrentTunnel = Instantiate(TurnRightPathPrefab, SpawnPosition, PathSpawn.rotation, transform);
                     WasLastTurnLeft = false;
@@ -112,7 +106,7 @@ namespace DarkTunnels
             SpawnPosition = new Vector3(PathSpawn.position.x, Height, PathSpawn.position.z);
         }
 
-        private void AddWaypoint(Transform child)
+        private void AddWaypoint (Transform child)
         {
             Tunnel tunnel = child.GetComponent<Tunnel>();
             CinemachinePath path = tunnel.Path;
