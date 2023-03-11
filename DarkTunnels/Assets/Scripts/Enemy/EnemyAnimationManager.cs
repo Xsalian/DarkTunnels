@@ -1,15 +1,15 @@
+using System;
 using UnityEngine;
 
 namespace DarkTunnels
 {
     public class EnemyAnimationManager : MonoBehaviour
     {
-        [field: SerializeField]
-        private EnemyAudioController AudioController { get; set; }
+        public Action OnAttack = delegate { };
 
         public void Attack ()
         {
-            AudioController.PlaySFX(EnemyAudioType.ATTACK);
+            OnAttack.Invoke();
         }
     }
 }

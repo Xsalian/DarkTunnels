@@ -1,3 +1,4 @@
+using DarkTunnels.Train;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,6 +15,8 @@ namespace DarkTunnels
         private NavMeshAgent EnemyAgent { get; set; }
         [field: SerializeField]
         private List<EnemyBodyPart> BodyPartCollection { get; set; }
+        [field: SerializeField]
+        private EnemyAnimationManager AnimationManager { get; set; }
         [field: SerializeField]
         private Animator AnimationController { get; set; }
         [field: SerializeField]
@@ -49,16 +52,6 @@ namespace DarkTunnels
         protected virtual void Update ()
         {
             SetEnemyDestination();
-            
-            //DEBUG INPUT REMOVE LATER
-			if (Input.GetKeyDown(KeyCode.I))
-			{
-                HandleOnHit(BodyParts.HEAD, 100);
-			}
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                HandleOnHit(BodyParts.STOMACH, 100);
-            }
         }
 
         private void Initialize ()
@@ -67,7 +60,7 @@ namespace DarkTunnels
             InitializeStatistics();
         }
 
-        private void InitializeStatistics()
+        private void InitializeStatistics ()
         {
             CurrentHealthPoints = EnemyStatistics.MaxHealthPoints;
             EnemyAgent.speed = EnemyStatistics.Speed;
@@ -84,7 +77,9 @@ namespace DarkTunnels
                     BodyPartCollection[index].OnCollisonWithTrain += HandleOnCollisonWithTrain;
                 }
 			}
-		}
+
+            AnimationManager.OnAttack += HandleOnAttackEvent;
+        }
 
         private void DetachFromEvents ()
         {
@@ -97,6 +92,8 @@ namespace DarkTunnels
                     BodyPartCollection[index].OnCollisonWithTrain -= HandleOnCollisonWithTrain;
                 }
             }
+
+            AnimationManager.OnAttack -= HandleOnAttackEvent;
         }
 
         private void SetEnemyDestination ()
@@ -159,5 +156,11 @@ namespace DarkTunnels
                 AudioController.PlaySFX(EnemyAudioType.IDLE);
             }
 		}
+
+        private void HandleOnAttackEvent ()
+        {
+            AudioController.PlaySFX(EnemyAudioType.ATTACK);
+            TrainController.Instance.TakeDamage(EnemyStatistics.AttackPower);
+        }
     }
 }
